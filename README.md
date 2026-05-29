@@ -4,6 +4,20 @@ Agentic Demo Director records deterministic product-demo videos from reusable Ty
 
 This repo is intentionally local and private for now. It is not a published npm package yet.
 
+## Natural-Language Workflow
+
+The main point is that the user should be able to ask for a demo in plain English:
+
+```text
+make the demo video
+make the delete slower
+hold success longer
+end on the videos list
+make it 4x5
+```
+
+The agent translates those requests into small deterministic edits in `demo/main.demo.ts`, then reruns the recorder and validates the output. The browser is not hand-piloted as a one-off performance; the scenario becomes reusable project code.
+
 ## What It Does
 
 - Starts or connects to your app dev server.

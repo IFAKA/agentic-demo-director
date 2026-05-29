@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Agentic Demo Director records deterministic app demo videos from reusable TypeScript scenarios."
+      content="Agentic Demo Director turns natural-language demo requests into deterministic Playwright and ffmpeg product videos."
     />
     <title>Agentic Demo Director</title>
     <link rel="stylesheet" href="./styles.css" />
@@ -13,127 +13,128 @@
   <body>
     <main>
       <section class="hero">
-        <div class="hero__copy">
-          <p class="eyebrow">Local CLI + Playwright + ffmpeg</p>
-          <h1>Agentic Demo Director</h1>
+        <div class="hero-copy">
+          <p class="eyebrow">Natural language in. Demo video out.</p>
+          <h1>Ask an agent to make the demo video.</h1>
           <p class="lede">
-            A reusable system for recording polished product demos from deterministic TypeScript scenarios.
+            Agentic Demo Director turns requests like “make the delete slower” or “end on the videos list” into reusable
+            TypeScript scenarios, recorded with Playwright and exported with ffmpeg.
           </p>
-          <div class="hero__actions" aria-label="Primary setup commands">
-            <a href="#quick-start">Quick start</a>
-            <a href="#scenario">Scenario example</a>
+          <div class="prompt-strip" aria-label="Example natural language demo requests">
+            <span>make the demo video</span>
+            <span>hold success longer</span>
+            <span>make it 4x5</span>
+            <span>end on videos</span>
           </div>
         </div>
-        <div class="terminal" aria-label="Demo Director command output">
-          <div class="terminal__bar">
-            <span></span><span></span><span></span>
+
+        <div class="device-stage" aria-label="Demo generation preview">
+          <div class="phone">
+            <div class="phone-status">
+              <span>9:41</span>
+              <span>Demo</span>
+            </div>
+            <div class="chat">
+              <p class="bubble user">Make the launch demo. Show recording, delete one clip, then end on the saved videos list.</p>
+              <p class="bubble agent">Writing scenario...</p>
+              <p class="bubble agent">Recording deterministic take...</p>
+              <p class="bubble done">Exported 1080x1350 at 30fps.</p>
+            </div>
           </div>
-          <pre><code>$ npm run demo:record
-demo-director record demo/main.demo.ts
-
-✓ server ready
-✓ scenario main
-✓ raw take captured
-✓ composed 1080x1350 @ 30fps
-✓ report + frame sheet written
-
-dist/demo/main.mp4</code></pre>
+          <figure class="frames">
+            <img src="./assets/idlediary-demo-frames.jpg" alt="Contact sheet from a generated IdleDiary demo video" />
+            <figcaption>Real output contact sheet from the IdleDiary demo run.</figcaption>
+          </figure>
         </div>
       </section>
 
-      <section class="band" id="quick-start">
-        <div class="section-heading">
-          <p class="eyebrow">Start here</p>
-          <h2>Install it into an app repo</h2>
+      <section class="pipeline" id="how-it-works" aria-labelledby="how-title">
+        <div class="section-title">
+          <p class="eyebrow">How it works</p>
+          <h2 id="how-title">The agent changes the recipe. The recorder does the exact same thing every time.</h2>
         </div>
-        <div class="steps">
+        <div class="pipeline-grid">
           <article>
-            <span>01</span>
-            <h3>Install the local CLI</h3>
-            <pre><code>npm install --save-dev ../agentic-demo-director/packages/cli</code></pre>
+            <span>1</span>
+            <h3>Say what should change</h3>
+            <p>Use normal language: “slow down the delete,” “show the success state longer,” or “make it 4x5.”</p>
           </article>
           <article>
-            <span>02</span>
-            <h3>Create demo files</h3>
-            <pre><code>npx demo-director init</code></pre>
+            <span>2</span>
+            <h3>Scenario gets edited</h3>
+            <p>The agent updates a typed `.demo.ts` file instead of manually piloting the browser every run.</p>
           </article>
           <article>
-            <span>03</span>
-            <h3>Record and inspect</h3>
-            <pre><code>npm run demo:doctor
+            <span>3</span>
+            <h3>Playwright records it</h3>
+            <p>A fresh browser context runs stable selectors, assertions, app hooks, and visible tap or drag gestures.</p>
+          </article>
+          <article>
+            <span>4</span>
+            <h3>ffmpeg exports proof</h3>
+            <p>The final MP4, frame sheet, and JSON report are generated and validated before the run is done.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="split" id="quick-start">
+        <div class="section-title">
+          <p class="eyebrow">Setup</p>
+          <h2>Install it once, then ask for demos in plain English.</h2>
+          <p>
+            The first integration adds scripts and a reusable scenario. Future requests usually become small timing,
+            route, selector, or format edits.
+          </p>
+        </div>
+        <pre><code>npm install --save-dev ../agentic-demo-director/packages/cli
+npx demo-director init
+
+npm run demo:doctor
 npm run demo:record
 npm run demo:inspect</code></pre>
-          </article>
-        </div>
       </section>
 
-      <section class="grid-section">
-        <div>
-          <p class="eyebrow">What happens</p>
-          <h2>The agent edits recipes. The recorder executes them.</h2>
-        </div>
-        <div class="feature-grid">
-          <article>
-            <h3>Typed scenarios</h3>
-            <p>Reusable `.demo.ts` files describe routes, viewport, timing, assertions, and final video format.</p>
-          </article>
-          <article>
-            <h3>Visible gestures</h3>
-            <p>Tap ripples and drag trails are injected by the recorder, so every app gets the same polished touch language.</p>
-          </article>
-          <article>
-            <h3>Deterministic browser</h3>
-            <p>Each run uses a fresh Playwright context with fixed viewport, locale, timezone, color scheme, and storage.</p>
-          </article>
-          <article>
-            <h3>Validated exports</h3>
-            <p>ffprobe checks dimensions, frame rate, duration, codec, and audio before the run is considered complete.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="band" id="scenario">
-        <div class="section-heading">
+      <section class="scenario" id="scenario">
+        <div class="section-title">
           <p class="eyebrow">Scenario</p>
-          <h2>A minimal walkthrough recipe</h2>
+          <h2>A demo request becomes code the team can keep.</h2>
         </div>
-        <pre class="code-block"><code>import { defineDemo } from "@faka/demo-director";
+        <pre><code>import { defineDemo } from "@faka/demo-director";
 
 export default defineDemo({
   name: "main",
-  startUrl: "/demo/main?demo=1",
+  startUrl: "/demo/launch?scene=intro",
   output: "dist/demo/main.mp4",
-  server: {
-    command: "npm run dev",
-    url: "http://127.0.0.1:3000",
-  },
   format: {
     width: 1080,
     height: 1350,
     fps: 30,
-    duration: { min: 20, max: 40 },
+    duration: { min: 28, max: 40 },
     crop: "social-4x5",
     cursor: "hidden",
   },
   steps: async ({ page, gesture, expect }) => {
-    await expect(page.getByRole("heading", { name: "Home" })).toBeVisible();
-    await gesture.tap(page.getByRole("button", { name: "Start" }));
-    await expect(page.getByText("Success")).toBeVisible();
-    await gesture.wait(1500);
+    await gesture.tap(page.getByRole("button", { name: "Start recording" }));
+    await gesture.drag({
+      from: page.locator("[data-clip-id] button").nth(1),
+      to: page.getByTestId("review-action-bar"),
+      durationMs: 950,
+    });
+    await expect(page.getByRole("heading", { name: "4 Tiny Moments" })).toBeVisible();
   },
 });</code></pre>
       </section>
 
-      <section class="grid-section">
-        <div>
-          <p class="eyebrow">Outputs</p>
-          <h2>Every run leaves evidence</h2>
+      <section class="outputs" aria-labelledby="outputs-title">
+        <div class="section-title">
+          <p class="eyebrow">Validation</p>
+          <h2 id="outputs-title">The agent cannot just say “done.” It has to produce artifacts.</h2>
         </div>
         <div class="output-list">
-          <p><strong>dist/demo/main.mp4</strong><span>Final H.264 social video</span></p>
-          <p><strong>dist/demo/main.frames.jpg</strong><span>Contact sheet for visual inspection</span></p>
-          <p><strong>dist/demo/main.report.json</strong><span>Dimensions, fps, duration, codec, audio, timings</span></p>
-          <p><strong>dist/demo/takes/</strong><span>Raw browser takes for debugging</span></p>
+          <p><strong>main.mp4</strong><span>Final H.264 demo video.</span></p>
+          <p><strong>main.frames.jpg</strong><span>Contact sheet for visual review.</span></p>
+          <p><strong>main.report.json</strong><span>Duration, fps, dimensions, codec, audio, and timings.</span></p>
+          <p><strong>takes/</strong><span>Raw browser captures for debugging broken runs.</span></p>
         </div>
       </section>
     </main>
