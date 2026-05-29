@@ -28,7 +28,7 @@ const streams = [
       "scenario",
       `export default defineDemo({
   startUrl: "/demo/launch?scene=intro",
-  output: "dist/demo/main.mp4",
+  output: "dist/launch-video/idlediary-launch-4x5.mp4",
   format: { width: 1080, height: 1350, fps: 30 },
   steps: async ({ page, gesture, expect }) => {
     await gesture.tap(startRecording)

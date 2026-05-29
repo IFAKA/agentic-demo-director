@@ -502,7 +502,7 @@ body.is-opening.is-intro-microdemo .hero .demo-workbench {
 .editor-tabbar {
   min-height: 38px;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
   gap: 12px;
   padding: 0 14px;
@@ -523,6 +523,44 @@ body.is-opening.is-intro-microdemo .hero .demo-workbench {
 .editor-tabbar em {
   color: #7dd3fc;
   font-style: normal;
+}
+
+.ai-editing-indicator {
+  display: inline-grid;
+  grid-template-columns: 14px auto;
+  align-items: center;
+  gap: 6px;
+  min-height: 24px;
+  padding: 0 8px;
+  border: 1px solid rgba(52, 211, 153, 0.32);
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #a7f3d0;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.ai-editing-indicator i {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.12);
+}
+
+.ai-editing-indicator i::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border: 1px solid rgba(52, 211, 153, 0.38);
+  border-radius: 50%;
+  animation: ai-pulse 1.2s ease-out infinite;
+}
+
+.ai-editing-indicator b {
+  font: inherit;
+  letter-spacing: 0;
 }
 
 .editor-breadcrumb {
@@ -547,6 +585,16 @@ body.is-opening.is-intro-microdemo .hero .demo-workbench {
   font-size: 0.74rem;
   line-height: 1.65;
   padding: 18px 18px 18px 48px;
+}
+
+.editor-window pre .cursor {
+  width: 2px;
+  height: 1.2em;
+  margin-left: 3px;
+  vertical-align: -0.2em;
+  border-radius: 999px;
+  background: #7dd3fc;
+  box-shadow: 0 0 16px rgba(125, 211, 252, 0.42);
 }
 
 .editor-statusbar {
@@ -759,6 +807,13 @@ body.is-intro-microdemo .restart-note {
 @keyframes blink {
   50% {
     opacity: 0;
+  }
+}
+
+@keyframes ai-pulse {
+  to {
+    opacity: 0;
+    transform: scale(1.8);
   }
 }
 

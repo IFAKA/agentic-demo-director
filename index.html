@@ -71,6 +71,10 @@
                 <div class="editor-main">
                   <div class="editor-tabbar">
                     <span>main.demo.ts</span>
+                    <div class="ai-editing-indicator" aria-label="AI editing">
+                      <i></i>
+                      <b>AI</b>
+                    </div>
                     <em>TypeScript</em>
                   </div>
                   <div class="editor-breadcrumb">demos / main.demo.ts</div>
@@ -100,6 +104,10 @@
                 <div class="editor-main">
                   <div class="editor-tabbar">
                     <span>main.demo.ts</span>
+                    <div class="ai-editing-indicator" aria-label="AI editing">
+                      <i></i>
+                      <b>AI</b>
+                    </div>
                     <em>git diff</em>
                   </div>
                   <div class="editor-breadcrumb">demos / main.demo.ts / changes</div>
@@ -134,14 +142,14 @@
             </div>
             <div class="demo-step output-step" data-step="5">
               <video
-                src="./assets/idlediary-demo.mp4"
+                src="./assets/idlediary-launch-video.mp4"
                 muted
                 playsinline
                 loop
               ></video>
               <div class="player-overlay">
                 <p class="eyebrow">Generated output</p>
-                <h2>main.mp4</h2>
+                <h2>idlediary-launch-4x5.mp4</h2>
                 <p>Validated 1080x1350 demo video, frame sheet, and report.</p>
                 <div class="video-controls">
                   <span></span>
@@ -236,7 +244,7 @@ npm run demo:inspect</code></pre>
 export default defineDemo({
   name: "main",
   startUrl: "/demo/launch?scene=intro",
-  output: "dist/demo/main.mp4",
+  output: "dist/launch-video/idlediary-launch-4x5.mp4",
   format: {
     width: 1080,
     height: 1350,
@@ -267,11 +275,11 @@ export default defineDemo({
         </div>
         <div class="output-list">
           <p>
-            <strong>main.mp4</strong
+            <strong>idlediary-launch-4x5.mp4</strong
             ><span>The demo video the user asked for.</span>
           </p>
           <p>
-            <strong>main.frames.jpg</strong
+            <strong>frame-samples-latest.jpg</strong
             ><span
               >A contact sheet the agent can inspect before calling it
               done.</span
