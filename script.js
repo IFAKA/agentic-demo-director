@@ -71,6 +71,7 @@ const wordsPerMinute = 220;
 const codeLineAssimilation = 420;
 const minimumHold = 1400;
 const maximumHold = 4300;
+const scenarioGeneratedPause = 900;
 let currentStep = 0;
 let timer;
 let runId = 0;
@@ -126,6 +127,8 @@ async function playFromStep(stepIndex, options = {}) {
 async function runCurrentStep(activeRun, options = {}) {
   if (activeRun !== runId) return;
   await streamStep(currentStep, activeRun);
+  if (activeRun !== runId) return;
+  await wait(getPostStreamPause(currentStep));
   if (activeRun !== runId) return;
   if (currentStep >= steps.length - 1) {
     if (options.onComplete) {
@@ -273,6 +276,10 @@ function getStepHoldDuration(stepIndex) {
   const codeMs = lineCount * codeLineAssimilation;
   const contentMs = steps[stepIndex]?.classList.contains("editor-step") ? Math.max(readingMs, codeMs) : readingMs;
   return Math.min(maximumHold, Math.max(minimumHold, Math.round(recognitionDelay + contentMs)));
+}
+
+function getPostStreamPause(stepIndex) {
+  return stepIndex === 1 ? scenarioGeneratedPause : 0;
 }
 
 function clampStep(stepIndex) {
