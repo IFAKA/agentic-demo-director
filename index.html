@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Agentic Demo Director records deterministic app demo videos from reusable TypeScript scenarios."
+    />
+    <title>Agentic Demo Director</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">Local CLI + Playwright + ffmpeg</p>
+          <h1>Agentic Demo Director</h1>
+          <p class="lede">
+            A reusable system for recording polished product demos from deterministic TypeScript scenarios.
+          </p>
+          <div class="hero__actions" aria-label="Primary setup commands">
+            <a href="#quick-start">Quick start</a>
+            <a href="#scenario">Scenario example</a>
+          </div>
+        </div>
+        <div class="terminal" aria-label="Demo Director command output">
+          <div class="terminal__bar">
+            <span></span><span></span><span></span>
+          </div>
+          <pre><code>$ npm run demo:record
+demo-director record demo/main.demo.ts
+
+✓ server ready
+✓ scenario main
+✓ raw take captured
+✓ composed 1080x1350 @ 30fps
+✓ report + frame sheet written
+
+dist/demo/main.mp4</code></pre>
+        </div>
+      </section>
+
+      <section class="band" id="quick-start">
+        <div class="section-heading">
+          <p class="eyebrow">Start here</p>
+          <h2>Install it into an app repo</h2>
+        </div>
+        <div class="steps">
+          <article>
+            <span>01</span>
+            <h3>Install the local CLI</h3>
+            <pre><code>npm install --save-dev ../agentic-demo-director/packages/cli</code></pre>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Create demo files</h3>
+            <pre><code>npx demo-director init</code></pre>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Record and inspect</h3>
+            <pre><code>npm run demo:doctor
+npm run demo:record
+npm run demo:inspect</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section class="grid-section">
+        <div>
+          <p class="eyebrow">What happens</p>
+          <h2>The agent edits recipes. The recorder executes them.</h2>
+        </div>
+        <div class="feature-grid">
+          <article>
+            <h3>Typed scenarios</h3>
+            <p>Reusable `.demo.ts` files describe routes, viewport, timing, assertions, and final video format.</p>
+          </article>
+          <article>
+            <h3>Visible gestures</h3>
+            <p>Tap ripples and drag trails are injected by the recorder, so every app gets the same polished touch language.</p>
+          </article>
+          <article>
+            <h3>Deterministic browser</h3>
+            <p>Each run uses a fresh Playwright context with fixed viewport, locale, timezone, color scheme, and storage.</p>
+          </article>
+          <article>
+            <h3>Validated exports</h3>
+            <p>ffprobe checks dimensions, frame rate, duration, codec, and audio before the run is considered complete.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="band" id="scenario">
+        <div class="section-heading">
+          <p class="eyebrow">Scenario</p>
+          <h2>A minimal walkthrough recipe</h2>
+        </div>
+        <pre class="code-block"><code>import { defineDemo } from "@faka/demo-director";
+
+export default defineDemo({
+  name: "main",
+  startUrl: "/demo/main?demo=1",
+  output: "dist/demo/main.mp4",
+  server: {
+    command: "npm run dev",
+    url: "http://127.0.0.1:3000",
+  },
+  format: {
+    width: 1080,
+    height: 1350,
+    fps: 30,
+    duration: { min: 20, max: 40 },
+    crop: "social-4x5",
+    cursor: "hidden",
+  },
+  steps: async ({ page, gesture, expect }) => {
+    await expect(page.getByRole("heading", { name: "Home" })).toBeVisible();
+    await gesture.tap(page.getByRole("button", { name: "Start" }));
+    await expect(page.getByText("Success")).toBeVisible();
+    await gesture.wait(1500);
+  },
+});</code></pre>
+      </section>
+
+      <section class="grid-section">
+        <div>
+          <p class="eyebrow">Outputs</p>
+          <h2>Every run leaves evidence</h2>
+        </div>
+        <div class="output-list">
+          <p><strong>dist/demo/main.mp4</strong><span>Final H.264 social video</span></p>
+          <p><strong>dist/demo/main.frames.jpg</strong><span>Contact sheet for visual inspection</span></p>
+          <p><strong>dist/demo/main.report.json</strong><span>Dimensions, fps, duration, codec, audio, timings</span></p>
+          <p><strong>dist/demo/takes/</strong><span>Raw browser takes for debugging</span></p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
