@@ -15,10 +15,10 @@
       <section class="hero">
         <div class="hero-copy">
           <p class="eyebrow">Natural language in. Demo video out.</p>
-          <h1>Ask an agent to make the demo video.</h1>
+          <h1>Create demos by typing what you want.</h1>
           <p class="lede">
-            Agentic Demo Director turns requests like “make the delete slower” or “end on the videos list” into reusable
-            TypeScript scenarios, recorded with Playwright and exported with ffmpeg.
+            Tell the agent what the walkthrough should show. It edits the scenario, records the app, validates the video,
+            and keeps the recipe for the next natural-language tweak.
           </p>
           <div class="prompt-strip" aria-label="Example natural language demo requests">
             <span>make the demo video</span>
@@ -28,23 +28,43 @@
           </div>
         </div>
 
-        <div class="device-stage" aria-label="Demo generation preview">
-          <div class="phone">
-            <div class="phone-status">
-              <span>9:41</span>
-              <span>Demo</span>
-            </div>
-            <div class="chat">
-              <p class="bubble user">Make the launch demo. Show recording, delete one clip, then end on the saved videos list.</p>
-              <p class="bubble agent">Writing scenario...</p>
-              <p class="bubble agent">Recording deterministic take...</p>
-              <p class="bubble done">Exported 1080x1350 at 30fps.</p>
+        <div class="demo-workbench" aria-label="Natural language demo generation preview">
+          <div class="workbench-topbar">
+            <span></span>
+            <strong>Demo request</strong>
+            <em>ready</em>
+          </div>
+          <div class="request-box">
+            <p>Make the launch demo. Show recording, delete one clip, make the delete slower, and end on the videos list.</p>
+          </div>
+          <div class="agent-grid">
+            <section>
+              <h2>Agent edits</h2>
+              <ul>
+                <li>Route: <strong>/demo/launch</strong></li>
+                <li>Gesture: <strong>drag-to-delete 950ms</strong></li>
+                <li>Ending: <strong>Videos list</strong></li>
+              </ul>
+            </section>
+            <section>
+              <h2>Recorder run</h2>
+              <ol>
+                <li>Open clean browser</li>
+                <li>Run typed scenario</li>
+                <li>Validate MP4</li>
+              </ol>
+            </section>
+          </div>
+          <div class="output-preview">
+            <figure>
+              <img src="./assets/idlediary-demo-frames.jpg" alt="Contact sheet from a generated IdleDiary demo video" />
+            </figure>
+            <div>
+              <p class="eyebrow">Generated output</p>
+              <h2>main.mp4</h2>
+              <p>1080x1350 · 30fps · frame sheet + report</p>
             </div>
           </div>
-          <figure class="frames">
-            <img src="./assets/idlediary-demo-frames.jpg" alt="Contact sheet from a generated IdleDiary demo video" />
-            <figcaption>Real output contact sheet from the IdleDiary demo run.</figcaption>
-          </figure>
         </div>
       </section>
 
