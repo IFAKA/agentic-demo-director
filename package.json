@@ -1,0 +1,19 @@
+{
+  "name": "agentic-demo-director",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build -w @faka/demo-director-recorder && npm run build -w @faka/demo-director-app-sdk && npm run build -w @faka/demo-director",
+    "typecheck": "npm run typecheck -w @faka/demo-director-recorder && npm run typecheck -w @faka/demo-director-app-sdk && npm run typecheck -w @faka/demo-director",
+    "test": "npm run typecheck",
+    "demo-director": "node packages/cli/dist/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3"
+  }
+}
