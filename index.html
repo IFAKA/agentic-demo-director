@@ -17,8 +17,8 @@
           <p class="eyebrow">Natural language in. Demo video out.</p>
           <h1>Ask for a demo. Get the video.</h1>
           <p class="lede">
-            Tell the agent what the walkthrough should show. It edits the scenario, records the app, validates the video,
-            and keeps the recipe for the next natural-language tweak.
+            Type what the product walkthrough should show. The agent streams the scenario, patches your tweaks, records
+            the app, and returns a validated MP4 with the recipe saved for next time.
           </p>
           <div class="prompt-strip terminal-prompts" aria-label="Example natural language demo requests">
             <span>make the demo video</span>
@@ -30,7 +30,7 @@
         <button class="demo-workbench" type="button" aria-label="Natural language demo generation preview. Click to restart animation.">
           <div class="workbench-topbar">
             <span></span>
-            <strong data-demo-title>Terminal</strong>
+            <strong data-demo-title>Terminal request</strong>
             <em data-demo-status>typing</em>
           </div>
 
@@ -59,18 +59,16 @@
               </div>
             </div>
             <div class="demo-step output-step" data-step="4">
-              <div class="video-card">
-                <video src="./assets/idlediary-demo.mp4" muted playsinline loop></video>
-                <div class="video-controls">
-                  <span></span>
-                  <strong>main.mp4</strong>
-                  <em>30fps</em>
-                </div>
-              </div>
-              <div>
+              <video src="./assets/idlediary-demo.mp4" muted playsinline loop></video>
+              <div class="player-overlay">
                 <p class="eyebrow">Generated output</p>
                 <h2>main.mp4</h2>
-                <p>Validated video, frame sheet, and report.</p>
+                <p>Validated 1080x1350 demo video, frame sheet, and report.</p>
+                <div class="video-controls">
+                  <span></span>
+                  <strong>playing</strong>
+                  <em>30fps</em>
+                </div>
               </div>
             </div>
           </div>
@@ -94,22 +92,22 @@
         <div class="pipeline-grid">
           <article>
             <span>1</span>
-            <h3>Ask for the demo</h3>
-            <p>A normal request starts it: “make the launch demo video” or “record the onboarding walkthrough.”</p>
+            <h3>Type the request</h3>
+            <p>A normal prompt starts it: “make the launch demo video” or “record the onboarding walkthrough.”</p>
           </article>
           <article>
             <span>2</span>
-            <h3>Scenario streams in</h3>
+            <h3>Watch the recipe stream</h3>
             <p>The agent detects routes, fixtures, selectors, hooks, and writes the repeatable `.demo.ts` recipe.</p>
           </article>
           <article>
             <span>3</span>
-            <h3>Tweaks patch code</h3>
+            <h3>Ask for a tweak</h3>
             <p>“Make the delete slower” changes the exact gesture timing instead of editing pixels by hand.</p>
           </article>
           <article>
             <span>4</span>
-            <h3>Recorder exports proof</h3>
+            <h3>Get the video</h3>
             <p>Playwright performs the demo, ffmpeg composes the MP4, and ffprobe validates the result.</p>
           </article>
         </div>
