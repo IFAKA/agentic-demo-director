@@ -9,6 +9,7 @@ const labels = [
   ["Terminal", "typing"],
   ["Scenario", "writing"],
   ["Tweak", "patching"],
+  ["Recorder", "running"],
   ["Output", "done"],
 ];
 
@@ -43,10 +44,16 @@ const streams = [
 + })`,
     ],
   ],
+  [
+    ["record-1", "start dev server and open a fresh browser context"],
+    ["record-2", "run scenario with tap and drag overlay"],
+    ["record-3", "compose final 4x5 MP4 with ffmpeg"],
+    ["record-4", "validate 1080x1350, 30fps, duration, report"],
+  ],
   [],
 ];
 
-const holdDurations = [1300, 1800, 1700, 0];
+const holdDurations = [1300, 1800, 1700, 1900, 0];
 let currentStep = 0;
 let timer;
 let runId = 0;
@@ -83,6 +90,7 @@ async function streamStep(stepIndex, activeRun) {
   const entries = streams[stepIndex] ?? [];
   for (const [target, text] of entries) {
     await typeInto(target, text, activeRun);
+    markRunDot(target);
     if (activeRun !== runId) return;
     await wait(260);
   }
@@ -121,6 +129,16 @@ function clearStreams() {
   document.querySelectorAll("[data-stream]").forEach((element) => {
     element.textContent = "";
   });
+  document.querySelectorAll("[data-run-dot]").forEach((element) => {
+    element.classList.remove("is-complete");
+  });
+}
+
+function markRunDot(targetName) {
+  const match = targetName.match(/^record-(\\d)$/);
+  if (!match) return;
+  const dot = document.querySelector(`[data-run-dot="${Number(match[1]) - 1}"]`);
+  dot?.classList.add("is-complete");
 }
 
 function wait(ms) {

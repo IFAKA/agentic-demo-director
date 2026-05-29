@@ -220,7 +220,7 @@ figcaption {
 
 .demo-stage {
   position: relative;
-  min-height: 318px;
+  min-height: 342px;
   border: 1px solid var(--line);
   border-radius: 24px;
   background: #111318;
@@ -314,11 +314,41 @@ figcaption {
 
 .demo-step pre {
   max-width: 520px;
-  min-height: 190px;
+  min-height: 176px;
   border-radius: 18px;
   font-size: 0.82rem;
   border-color: rgba(255, 255, 255, 0.1);
   background: #06070a;
+}
+
+.run-log {
+  display: grid;
+  gap: 14px;
+}
+
+.run-log p {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 12px;
+  align-items: start;
+  margin: 0;
+  color: #cbd5e1;
+  font-family: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.run-log span {
+  width: 10px;
+  height: 10px;
+  margin-top: 5px;
+  border-radius: 50%;
+  background: #475569;
+}
+
+.run-log span.is-complete {
+  background: var(--green);
+  box-shadow: 0 0 0 5px rgba(52, 199, 89, 0.16);
 }
 
 .output-step {
