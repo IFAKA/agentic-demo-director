@@ -11,23 +11,38 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
+    <div
+      class="opening-scene"
+      data-opening-scene
+      aria-label="Generated demo intro"
+    >
+      <div class="opening-splash" data-opening-splash>
+        <h1><span>Ask for a demo.</span><span>Get the video.</span></h1>
+      </div>
+    </div>
     <main>
       <section class="hero">
         <div class="hero-copy">
           <p class="eyebrow">Natural language in. Demo video out.</p>
           <h1>Ask for a demo. Get the video.</h1>
           <p class="lede">
-            Type what the product walkthrough should show. The agent streams the scenario, patches your tweaks, records
-            the app, and returns a validated MP4 with the recipe saved for next time.
+            Type what the product walkthrough should show. The agent streams the
+            scenario, patches your tweaks, records the app, and returns a
+            validated MP4 with the recipe saved for next time.
           </p>
-          <div class="prompt-strip terminal-prompts" aria-label="Example natural language demo requests">
+          <div
+            class="prompt-strip terminal-prompts"
+            aria-label="Example natural language demo requests"
+          >
             <span>make the demo video</span>
             <span>make delete slower</span>
-            <span>end on videos</span>
           </div>
         </div>
 
-        <div class="demo-workbench" aria-label="Natural language demo generation preview.">
+        <div
+          class="demo-workbench"
+          aria-label="Natural language demo generation preview."
+        >
           <div class="workbench-topbar">
             <span></span>
             <strong data-demo-title>Terminal request</strong>
@@ -36,30 +51,94 @@
 
           <div class="demo-stage">
             <div class="demo-step terminal-step is-active" data-step="0">
-              <p class="terminal-line prompt-line"><span>$</span> <span data-stream="request"></span><span class="cursor"></span></p>
-              <p class="terminal-line ghost-line" data-stream="request-detail"></p>
+              <p class="terminal-line prompt-line">
+                <span>$</span> <span data-stream="request"></span
+                ><span class="cursor"></span>
+              </p>
+              <p
+                class="terminal-line ghost-line"
+                data-stream="request-detail"
+              ></p>
               <p class="terminal-line cursor-line" data-stream="planning"></p>
             </div>
-            <div class="demo-step terminal-step" data-step="1">
-              <p class="terminal-label">Generating reusable scenario</p>
-              <pre><code data-stream="scenario"></code><span class="cursor"></span></pre>
-            </div>
-            <div class="demo-step terminal-step" data-step="2">
-              <p class="terminal-line prompt-line"><span>$</span> <span data-stream="tweak"></span><span class="cursor"></span></p>
-              <p class="terminal-label">Applying targeted patch</p>
-              <pre><code data-stream="patch"></code><span class="cursor"></span></pre>
-            </div>
-            <div class="demo-step terminal-step" data-step="3">
-              <p class="terminal-label">Recording and composing</p>
-              <div class="run-log">
-                <p><span data-run-dot="0"></span><code data-stream="record-1"></code></p>
-                <p><span data-run-dot="1"></span><code data-stream="record-2"></code></p>
-                <p><span data-run-dot="2"></span><code data-stream="record-3"></code></p>
-                <p><span data-run-dot="3"></span><code data-stream="record-4"></code></p>
+            <div class="demo-step editor-step" data-step="1">
+              <div class="editor-window">
+                <div class="editor-sidebar" aria-hidden="true">
+                  <span class="is-active"></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <div class="editor-main">
+                  <div class="editor-tabbar">
+                    <span>main.demo.ts</span>
+                    <em>TypeScript</em>
+                  </div>
+                  <div class="editor-breadcrumb">demos / main.demo.ts</div>
+                  <pre><code data-stream="scenario"></code><span class="cursor"></span></pre>
+                  <div class="editor-statusbar">
+                    <span>main</span>
+                    <span>Scenario recipe</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="demo-step output-step" data-step="4">
-              <video src="./assets/idlediary-demo.mp4" muted playsinline loop></video>
+            <div class="demo-step terminal-step" data-step="2">
+              <p class="terminal-line prompt-line">
+                <span>$</span> <span data-stream="tweak"></span
+                ><span class="cursor"></span>
+              </p>
+              <p class="terminal-line ghost-line" data-stream="tweak-detail"></p>
+              <p class="terminal-line cursor-line" data-stream="tweak-planning"></p>
+            </div>
+            <div class="demo-step editor-step" data-step="3">
+              <div class="editor-window diff-window">
+                <div class="editor-sidebar" aria-hidden="true">
+                  <span></span>
+                  <span class="is-active"></span>
+                  <span></span>
+                </div>
+                <div class="editor-main">
+                  <div class="editor-tabbar">
+                    <span>main.demo.ts</span>
+                    <em>git diff</em>
+                  </div>
+                  <div class="editor-breadcrumb">demos / main.demo.ts / changes</div>
+                  <pre><code data-stream="patch"></code><span class="cursor"></span></pre>
+                  <div class="editor-statusbar">
+                    <span>1 removed, 4 added</span>
+                    <span>Patch ready</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="demo-step terminal-step" data-step="4">
+              <p class="terminal-label">Recording and composing</p>
+              <div class="run-log">
+                <p>
+                  <span data-run-dot="0"></span
+                  ><code data-stream="record-1"></code>
+                </p>
+                <p>
+                  <span data-run-dot="1"></span
+                  ><code data-stream="record-2"></code>
+                </p>
+                <p>
+                  <span data-run-dot="2"></span
+                  ><code data-stream="record-3"></code>
+                </p>
+                <p>
+                  <span data-run-dot="3"></span
+                  ><code data-stream="record-4"></code>
+                </p>
+              </div>
+            </div>
+            <div class="demo-step output-step" data-step="5">
+              <video
+                src="./assets/idlediary-demo.mp4"
+                muted
+                playsinline
+                loop
+              ></video>
               <div class="player-overlay">
                 <p class="eyebrow">Generated output</p>
                 <h2>main.mp4</h2>
@@ -73,12 +152,13 @@
             </div>
           </div>
 
-          <div class="demo-progress" aria-hidden="true">
-            <span class="is-active"></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+          <div class="demo-progress" aria-label="Demo sections">
+            <button class="is-active" type="button" data-jump-step="0" aria-label="Play terminal request"></button>
+            <button type="button" data-jump-step="1" aria-label="Play scenario editor"></button>
+            <button type="button" data-jump-step="2" aria-label="Play tweak request"></button>
+            <button type="button" data-jump-step="3" aria-label="Play code changes"></button>
+            <button type="button" data-jump-step="4" aria-label="Play recording"></button>
+            <button type="button" data-jump-step="5" aria-label="Play output video"></button>
           </div>
           <button class="restart-note" type="button">Click to replay</button>
         </div>
@@ -87,28 +167,42 @@
       <section class="pipeline" id="how-it-works" aria-labelledby="how-title">
         <div class="section-title">
           <p class="eyebrow">Realistic flow</p>
-          <h2 id="how-title">The whole workflow follows the same loop as the hero.</h2>
+          <h2 id="how-title">
+            The whole workflow follows the same loop as the hero.
+          </h2>
         </div>
         <div class="pipeline-grid">
           <article>
             <span>1</span>
             <h3>Type the request</h3>
-            <p>A normal prompt starts it: “make the launch demo video” or “record the onboarding walkthrough.”</p>
+            <p>
+              A normal prompt starts it: “make the launch demo video” or “record
+              the onboarding walkthrough.”
+            </p>
           </article>
           <article>
             <span>2</span>
             <h3>Watch the recipe stream</h3>
-            <p>The agent detects routes, fixtures, selectors, hooks, and writes the repeatable `.demo.ts` recipe.</p>
+            <p>
+              The agent detects routes, fixtures, selectors, hooks, and writes
+              the repeatable `.demo.ts` recipe.
+            </p>
           </article>
           <article>
             <span>3</span>
             <h3>Ask for a tweak</h3>
-            <p>“Make the delete slower” changes the exact gesture timing instead of editing pixels by hand.</p>
+            <p>
+              “Make the delete slower” changes the exact gesture timing instead
+              of editing pixels by hand.
+            </p>
           </article>
           <article>
             <span>4</span>
             <h3>Get the video</h3>
-            <p>Playwright performs the demo, ffmpeg composes the MP4, and ffprobe validates the result.</p>
+            <p>
+              Playwright performs the demo, ffmpeg composes the MP4, and ffprobe
+              validates the result.
+            </p>
           </article>
         </div>
       </section>
@@ -118,8 +212,8 @@
           <p class="eyebrow">Install</p>
           <h2>One local CLI turns an app repo into a demo workspace.</h2>
           <p>
-            `init` adds the demo folder and scripts. After that, natural-language requests become scenario edits and
-            recorder runs.
+            `init` adds the demo folder and scripts. After that,
+            natural-language requests become scenario edits and recorder runs.
           </p>
         </div>
         <pre><code>npm install --save-dev ../agentic-demo-director/packages/cli
@@ -133,7 +227,9 @@ npm run demo:inspect</code></pre>
       <section class="scenario" id="scenario">
         <div class="section-title">
           <p class="eyebrow">Generated recipe</p>
-          <h2>The agent keeps the demo as code, so every tweak is repeatable.</h2>
+          <h2>
+            The agent keeps the demo as code, so every tweak is repeatable.
+          </h2>
         </div>
         <pre><code>import { defineDemo } from "@faka/demo-director";
 
@@ -164,13 +260,36 @@ export default defineDemo({
       <section class="outputs" aria-labelledby="outputs-title">
         <div class="section-title">
           <p class="eyebrow">Generated artifacts</p>
-          <h2 id="outputs-title">The final answer is a video plus evidence it was generated correctly.</h2>
+          <h2 id="outputs-title">
+            The final answer is a video plus evidence it was generated
+            correctly.
+          </h2>
         </div>
         <div class="output-list">
-          <p><strong>main.mp4</strong><span>The demo video the user asked for.</span></p>
-          <p><strong>main.frames.jpg</strong><span>A contact sheet the agent can inspect before calling it done.</span></p>
-          <p><strong>main.report.json</strong><span>Duration, fps, dimensions, codec, audio, scenario, and timings.</span></p>
-          <p><strong>takes/</strong><span>Raw browser recordings for debugging the generation step.</span></p>
+          <p>
+            <strong>main.mp4</strong
+            ><span>The demo video the user asked for.</span>
+          </p>
+          <p>
+            <strong>main.frames.jpg</strong
+            ><span
+              >A contact sheet the agent can inspect before calling it
+              done.</span
+            >
+          </p>
+          <p>
+            <strong>main.report.json</strong
+            ><span
+              >Duration, fps, dimensions, codec, audio, scenario, and
+              timings.</span
+            >
+          </p>
+          <p>
+            <strong>takes/</strong
+            ><span
+              >Raw browser recordings for debugging the generation step.</span
+            >
+          </p>
         </div>
       </section>
     </main>
