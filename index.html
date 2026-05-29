@@ -15,15 +15,14 @@
       <section class="hero">
         <div class="hero-copy">
           <p class="eyebrow">Natural language in. Demo video out.</p>
-          <h1>Type the demo. Get the video.</h1>
+          <h1>Ask for a demo. Get the video.</h1>
           <p class="lede">
             Tell the agent what the walkthrough should show. It edits the scenario, records the app, validates the video,
             and keeps the recipe for the next natural-language tweak.
           </p>
-          <div class="prompt-strip" aria-label="Example natural language demo requests">
+          <div class="prompt-strip terminal-prompts" aria-label="Example natural language demo requests">
             <span>make the demo video</span>
-            <span>hold success longer</span>
-            <span>make it 4x5</span>
+            <span>make delete slower</span>
             <span>end on videos</span>
           </div>
         </div>
@@ -31,46 +30,38 @@
         <button class="demo-workbench" type="button" aria-label="Natural language demo generation preview. Click to restart animation.">
           <div class="workbench-topbar">
             <span></span>
-            <strong data-demo-title>Demo request</strong>
+            <strong data-demo-title>Terminal</strong>
             <em data-demo-status>typing</em>
-          </div>
-          <div class="request-box">
-            <p>Make the launch demo. Show recording, delete one clip, make the delete slower, and end on the videos list.</p>
           </div>
 
           <div class="demo-stage">
-            <div class="demo-step is-active" data-step="0">
-              <p class="eyebrow">The agent understands intent</p>
-              <h2>Turn one sentence into a plan.</h2>
-              <ul>
-                <li>Show launch flow</li>
-                <li>Delete one clip slowly</li>
-                <li>End on saved videos</li>
-              </ul>
+            <div class="demo-step terminal-step is-active" data-step="0">
+              <p class="terminal-line prompt-line"><span>$</span> <span data-stream="request"></span><span class="cursor"></span></p>
+              <p class="terminal-line ghost-line" data-stream="request-detail"></p>
+              <p class="terminal-line cursor-line" data-stream="planning"></p>
             </div>
-            <div class="demo-step" data-step="1">
-              <p class="eyebrow">The recipe changes</p>
-              <h2>Edit the scenario, not the video.</h2>
-              <pre><code>gesture.drag({ durationMs: 950 })
-expect.heading("4 Tiny Moments")</code></pre>
+            <div class="demo-step terminal-step" data-step="1">
+              <p class="terminal-label">Generating reusable scenario</p>
+              <pre><code data-stream="scenario"></code><span class="cursor"></span></pre>
             </div>
-            <div class="demo-step" data-step="2">
-              <p class="eyebrow">The recorder runs</p>
-              <h2>Playwright performs the walkthrough.</h2>
-              <ol>
-                <li>Fresh browser context</li>
-                <li>Tap and drag overlay</li>
-                <li>Strict UI assertions</li>
-              </ol>
+            <div class="demo-step terminal-step" data-step="2">
+              <p class="terminal-line prompt-line"><span>$</span> <span data-stream="tweak"></span><span class="cursor"></span></p>
+              <p class="terminal-label">Applying targeted patch</p>
+              <pre><code data-stream="patch"></code><span class="cursor"></span></pre>
             </div>
             <div class="demo-step output-step" data-step="3">
-              <figure>
-                <img src="./assets/idlediary-demo-frames.jpg" alt="Contact sheet from a generated IdleDiary demo video" />
-              </figure>
+              <div class="video-card">
+                <video src="./assets/idlediary-demo.mp4" muted playsinline loop></video>
+                <div class="video-controls">
+                  <span></span>
+                  <strong>main.mp4</strong>
+                  <em>30fps</em>
+                </div>
+              </div>
               <div>
                 <p class="eyebrow">Generated output</p>
                 <h2>main.mp4</h2>
-                <p>1080x1350 · 30fps · frame sheet + report</p>
+                <p>Validated video, frame sheet, and report.</p>
               </div>
             </div>
           </div>

@@ -3,27 +3,100 @@ const steps = Array.from(document.querySelectorAll(".demo-step"));
 const dots = Array.from(document.querySelectorAll(".demo-progress span"));
 const title = document.querySelector("[data-demo-title]");
 const status = document.querySelector("[data-demo-status]");
+const video = document.querySelector(".output-step video");
 
 const labels = [
-  ["Demo request", "typing"],
-  ["Scenario edit", "editing"],
-  ["Recorder run", "recording"],
-  ["Validated output", "done"],
+  ["Terminal", "typing"],
+  ["Scenario", "writing"],
+  ["Tweak", "patching"],
+  ["Output", "done"],
 ];
 
+const streams = [
+  [
+    ["request", "make the launch demo video"],
+    ["request-detail", "Show recording, delete one clip, generate, and end on videos."],
+    ["planning", "Planning route, stable selectors, fixture media, gestures, and final validation..."],
+  ],
+  [
+    [
+      "scenario",
+      `export default defineDemo({
+  startUrl: "/demo/launch?scene=intro",
+  output: "dist/demo/main.mp4",
+  steps: async ({ page, gesture, expect }) => {
+    await gesture.tap(startRecording)
+    await gesture.drag(deleteClip)
+    await expect(videosList).toBeVisible()
+  }
+})`,
+    ],
+  ],
+  [
+    ["tweak", "make the delete slower"],
+    [
+      "patch",
+      `- await gesture.drag(deleteClip)
++ await gesture.drag(deleteClip, {
++   durationMs: 950,
++   holdMs: 320
++ })`,
+    ],
+  ],
+  [],
+];
+
+const holdDurations = [1300, 1800, 1700, 0];
 let currentStep = 0;
-let timer = window.setInterval(nextStep, 2100);
+let timer;
+let runId = 0;
 
 workbench?.addEventListener("click", () => {
-  currentStep = 0;
-  renderStep();
-  window.clearInterval(timer);
-  timer = window.setInterval(nextStep, 2100);
+  playFromStart();
 });
 
-function nextStep() {
-  currentStep = (currentStep + 1) % steps.length;
+playFromStart();
+
+async function playFromStart() {
+  runId += 1;
+  const activeRun = runId;
+  window.clearTimeout(timer);
+  currentStep = 0;
+  clearStreams();
   renderStep();
+  await runCurrentStep(activeRun);
+}
+
+async function runCurrentStep(activeRun) {
+  if (activeRun !== runId) return;
+  await streamStep(currentStep, activeRun);
+  if (activeRun !== runId) return;
+  if (currentStep >= steps.length - 1) return;
+  timer = window.setTimeout(async () => {
+    currentStep += 1;
+    renderStep();
+    await runCurrentStep(activeRun);
+  }, holdDurations[currentStep]);
+}
+
+async function streamStep(stepIndex, activeRun) {
+  const entries = streams[stepIndex] ?? [];
+  for (const [target, text] of entries) {
+    await typeInto(target, text, activeRun);
+    if (activeRun !== runId) return;
+    await wait(260);
+  }
+}
+
+async function typeInto(targetName, text, activeRun) {
+  const element = document.querySelector(`[data-stream="${targetName}"]`);
+  if (!element) return;
+  element.textContent = "";
+  for (const char of text) {
+    if (activeRun !== runId) return;
+    element.textContent += char;
+    await wait(char === "\n" ? 80 : 22);
+  }
 }
 
 function renderStep() {
@@ -33,4 +106,23 @@ function renderStep() {
     title.textContent = labels[currentStep][0];
     status.textContent = labels[currentStep][1];
   }
+  if (video) {
+    if (currentStep === steps.length - 1) {
+      video.currentTime = 0;
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+      video.currentTime = 0;
+    }
+  }
+}
+
+function clearStreams() {
+  document.querySelectorAll("[data-stream]").forEach((element) => {
+    element.textContent = "";
+  });
+}
+
+function wait(ms) {
+  return new Promise((resolve) => window.setTimeout(resolve, ms));
 }

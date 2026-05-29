@@ -124,6 +124,30 @@ figcaption {
   box-shadow: 0 6px 22px rgba(30, 41, 59, 0.06);
 }
 
+.terminal-prompts span {
+  border-color: rgba(17, 19, 24, 0.14);
+  border-radius: 10px;
+  background: #111318;
+  color: #f8fafc;
+  font-family: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+}
+
+.terminal-prompts span::before {
+  content: "$ ";
+  margin-right: 4px;
+  color: #8ec5ff;
+}
+
+.terminal-prompts span:first-child::after {
+  content: "";
+  width: 7px;
+  height: 1.05em;
+  margin-left: 5px;
+  background: #f8fafc;
+  animation: blink 1s steps(2, start) infinite;
+}
+
 .demo-workbench {
   display: grid;
   gap: 14px;
@@ -137,6 +161,15 @@ figcaption {
   cursor: pointer;
   font: inherit;
   text-align: left;
+  transform: scale(1);
+  transition:
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.demo-workbench:hover {
+  transform: translateY(-2px) scale(1.004);
+  box-shadow: 0 30px 80px rgba(30, 41, 59, 0.18);
 }
 
 .demo-workbench:focus-visible {
@@ -147,7 +180,7 @@ figcaption {
 .workbench-topbar {
   min-height: 44px;
   display: grid;
-  grid-template-columns: 28px 1fr auto;
+  grid-template-columns: 64px 1fr auto;
   align-items: center;
   gap: 12px;
   padding: 0 6px;
@@ -167,6 +200,10 @@ figcaption {
 
 .workbench-topbar strong {
   color: var(--ink);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .workbench-topbar em {
@@ -181,27 +218,12 @@ figcaption {
   font-weight: 700;
 }
 
-.request-box {
-  padding: 18px;
-  border-radius: 22px;
-  background: var(--blue);
-  color: #ffffff;
-}
-
-.request-box p {
-  max-width: 620px;
-  margin: 0;
-  font-size: 1.04rem;
-  line-height: 1.45;
-  font-weight: 650;
-}
-
 .demo-stage {
   position: relative;
   min-height: 318px;
   border: 1px solid var(--line);
   border-radius: 24px;
-  background: #f8fafc;
+  background: #111318;
   overflow: hidden;
 }
 
@@ -211,6 +233,7 @@ figcaption {
   display: grid;
   align-content: center;
   padding: 28px;
+  color: #f8fafc;
   opacity: 0;
   transform: translateY(12px) scale(0.98);
   visibility: hidden;
@@ -233,6 +256,51 @@ figcaption {
   line-height: 1;
 }
 
+.terminal-step {
+  font-family: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.terminal-line,
+.terminal-label {
+  margin-bottom: 12px;
+  color: #cbd5e1;
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+
+.prompt-line {
+  color: #f8fafc;
+  font-weight: 700;
+}
+
+.prompt-line span {
+  color: #8ec5ff;
+}
+
+.ghost-line {
+  color: #94a3b8;
+}
+
+.cursor-line {
+  color: #dbeafe;
+}
+
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.05em;
+  margin-left: 5px;
+  vertical-align: -0.15em;
+  background: #f8fafc;
+  animation: blink 1s steps(2, start) infinite;
+}
+
+.terminal-label {
+  margin-bottom: 10px;
+  color: #8ec5ff;
+  font-weight: 700;
+}
+
 .demo-step ul,
 .demo-step ol {
   display: grid;
@@ -246,8 +314,11 @@ figcaption {
 
 .demo-step pre {
   max-width: 520px;
+  min-height: 190px;
   border-radius: 18px;
-  font-size: 0.92rem;
+  font-size: 0.82rem;
+  border-color: rgba(255, 255, 255, 0.1);
+  background: #06070a;
 }
 
 .output-step {
@@ -258,18 +329,45 @@ figcaption {
   color: #ffffff;
 }
 
-.output-step figure {
-  margin: 0;
+.video-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #000000;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
 }
 
-.output-step img {
+.video-card video {
   width: 100%;
   display: block;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  object-position: top left;
-  border-radius: 16px;
-  background: #000000;
+}
+
+.video-controls {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  display: grid;
+  grid-template-columns: 30px 1fr auto;
+  gap: 8px;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.66);
+  color: #ffffff;
+  font-size: 0.72rem;
+  backdrop-filter: blur(12px);
+}
+
+.video-controls span {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 10px solid #ffffff;
 }
 
 .output-step .eyebrow {
@@ -308,6 +406,12 @@ figcaption {
   color: var(--tertiary);
   font-size: 0.84rem;
   text-align: center;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }
 
 .section-title {
