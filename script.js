@@ -68,10 +68,11 @@ const lineBreakDelay = 52;
 const promptCharDelay = 44;
 const recognitionDelay = 900;
 const wordsPerMinute = 220;
-const codeLineAssimilation = 420;
 const minimumHold = 1400;
 const maximumHold = 4300;
-const scenarioGeneratedPause = 900;
+const editorGeneratedPause = 900;
+const workbenchTransitionOut = 260;
+const workbenchTransitionIn = 320;
 let currentStep = 0;
 let timer;
 let runId = 0;
@@ -118,6 +119,7 @@ async function playFromStep(stepIndex, options = {}) {
   runId += 1;
   const activeRun = runId;
   window.clearTimeout(timer);
+  clearWindowTransition();
   currentStep = clampStep(stepIndex);
   clearStreams();
   renderStep();
@@ -139,8 +141,7 @@ async function runCurrentStep(activeRun, options = {}) {
     return;
   }
   timer = window.setTimeout(async () => {
-    currentStep += 1;
-    renderStep();
+    await advanceToStep(currentStep + 1, activeRun);
     await runCurrentStep(activeRun, options);
   }, getStepHoldDuration(currentStep));
 }
@@ -267,19 +268,53 @@ function renderStep() {
   }
 }
 
+async function advanceToStep(nextStep, activeRun) {
+  const targetStep = clampStep(nextStep);
+  if (activeRun !== runId) return;
+
+  if (prefersReducedMotion() || currentStep === targetStep) {
+    currentStep = targetStep;
+    renderStep();
+    return;
+  }
+
+  clearWindowTransition();
+  workbench?.classList.add("is-window-exiting");
+  await wait(workbenchTransitionOut);
+  if (activeRun !== runId) return;
+
+  currentStep = targetStep;
+  renderStep();
+  workbench?.classList.remove("is-window-exiting");
+  workbench?.classList.add("is-window-entering");
+  await wait(workbenchTransitionIn);
+  if (activeRun !== runId) return;
+
+  clearWindowTransition();
+}
+
 function getStepHoldDuration(stepIndex) {
-  if (stepIndex >= steps.length - 1) return 0;
+  if (stepIndex >= steps.length - 1 || isEditorStep(stepIndex)) return 0;
   const text = (streams[stepIndex] ?? []).map(([, value]) => value).join("\n");
   const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
-  const lineCount = text.split("\n").filter(Boolean).length;
   const readingMs = (wordCount / wordsPerMinute) * 60_000;
-  const codeMs = lineCount * codeLineAssimilation;
-  const contentMs = steps[stepIndex]?.classList.contains("editor-step") ? Math.max(readingMs, codeMs) : readingMs;
-  return Math.min(maximumHold, Math.max(minimumHold, Math.round(recognitionDelay + contentMs)));
+  return Math.min(maximumHold, Math.max(minimumHold, Math.round(recognitionDelay + readingMs)));
 }
 
 function getPostStreamPause(stepIndex) {
-  return stepIndex === 1 ? scenarioGeneratedPause : 0;
+  return isEditorStep(stepIndex) ? editorGeneratedPause : 0;
+}
+
+function isEditorStep(stepIndex) {
+  return steps[stepIndex]?.classList.contains("editor-step");
+}
+
+function clearWindowTransition() {
+  workbench?.classList.remove("is-window-exiting", "is-window-entering");
+}
+
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
 function clampStep(stepIndex) {
