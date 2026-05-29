@@ -15,7 +15,7 @@
       <section class="hero">
         <div class="hero-copy">
           <p class="eyebrow">Natural language in. Demo video out.</p>
-          <h1>Create demos by typing what you want.</h1>
+          <h1>Type the demo. Get the video.</h1>
           <p class="lede">
             Tell the agent what the walkthrough should show. It edits the scenario, records the app, validates the video,
             and keeps the recipe for the next natural-language tweak.
@@ -28,71 +28,88 @@
           </div>
         </div>
 
-        <div class="demo-workbench" aria-label="Natural language demo generation preview">
+        <button class="demo-workbench" type="button" aria-label="Natural language demo generation preview. Click to restart animation.">
           <div class="workbench-topbar">
             <span></span>
-            <strong>Demo request</strong>
-            <em>ready</em>
+            <strong data-demo-title>Demo request</strong>
+            <em data-demo-status>typing</em>
           </div>
           <div class="request-box">
             <p>Make the launch demo. Show recording, delete one clip, make the delete slower, and end on the videos list.</p>
           </div>
-          <div class="agent-grid">
-            <section>
-              <h2>Agent edits</h2>
+
+          <div class="demo-stage">
+            <div class="demo-step is-active" data-step="0">
+              <p class="eyebrow">The agent understands intent</p>
+              <h2>Turn one sentence into a plan.</h2>
               <ul>
-                <li>Route: <strong>/demo/launch</strong></li>
-                <li>Gesture: <strong>drag-to-delete 950ms</strong></li>
-                <li>Ending: <strong>Videos list</strong></li>
+                <li>Show launch flow</li>
+                <li>Delete one clip slowly</li>
+                <li>End on saved videos</li>
               </ul>
-            </section>
-            <section>
-              <h2>Recorder run</h2>
+            </div>
+            <div class="demo-step" data-step="1">
+              <p class="eyebrow">The recipe changes</p>
+              <h2>Edit the scenario, not the video.</h2>
+              <pre><code>gesture.drag({ durationMs: 950 })
+expect.heading("4 Tiny Moments")</code></pre>
+            </div>
+            <div class="demo-step" data-step="2">
+              <p class="eyebrow">The recorder runs</p>
+              <h2>Playwright performs the walkthrough.</h2>
               <ol>
-                <li>Open clean browser</li>
-                <li>Run typed scenario</li>
-                <li>Validate MP4</li>
+                <li>Fresh browser context</li>
+                <li>Tap and drag overlay</li>
+                <li>Strict UI assertions</li>
               </ol>
-            </section>
-          </div>
-          <div class="output-preview">
-            <figure>
-              <img src="./assets/idlediary-demo-frames.jpg" alt="Contact sheet from a generated IdleDiary demo video" />
-            </figure>
-            <div>
-              <p class="eyebrow">Generated output</p>
-              <h2>main.mp4</h2>
-              <p>1080x1350 · 30fps · frame sheet + report</p>
+            </div>
+            <div class="demo-step output-step" data-step="3">
+              <figure>
+                <img src="./assets/idlediary-demo-frames.jpg" alt="Contact sheet from a generated IdleDiary demo video" />
+              </figure>
+              <div>
+                <p class="eyebrow">Generated output</p>
+                <h2>main.mp4</h2>
+                <p>1080x1350 · 30fps · frame sheet + report</p>
+              </div>
             </div>
           </div>
-        </div>
+
+          <div class="demo-progress" aria-hidden="true">
+            <span class="is-active"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <p class="restart-note">Click to replay</p>
+        </button>
       </section>
 
       <section class="pipeline" id="how-it-works" aria-labelledby="how-title">
         <div class="section-title">
-          <p class="eyebrow">How it works</p>
-          <h2 id="how-title">The agent changes the recipe. The recorder does the exact same thing every time.</h2>
+          <p class="eyebrow">Realistic flow</p>
+          <h2 id="how-title">A normal user asks for the demo. The agent builds the repeatable recording setup.</h2>
         </div>
         <div class="pipeline-grid">
           <article>
             <span>1</span>
-            <h3>Say what should change</h3>
-            <p>Use normal language: “slow down the delete,” “show the success state longer,” or “make it 4x5.”</p>
+            <h3>Ask in plain English</h3>
+            <p>“Make a launch demo. Show record, delete, generate, and end on the videos list.”</p>
           </article>
           <article>
             <span>2</span>
-            <h3>Scenario gets edited</h3>
-            <p>The agent updates a typed `.demo.ts` file instead of manually piloting the browser every run.</p>
+            <h3>Agent prepares the app</h3>
+            <p>It finds routes, selectors, fixtures, demo hooks, and writes a reusable `demo/main.demo.ts` scenario.</p>
           </article>
           <article>
             <span>3</span>
-            <h3>Playwright records it</h3>
-            <p>A fresh browser context runs stable selectors, assertions, app hooks, and visible tap or drag gestures.</p>
+            <h3>You request tweaks</h3>
+            <p>“Make the delete slower” becomes a small timing edit, then the same scenario records again.</p>
           </article>
           <article>
             <span>4</span>
-            <h3>ffmpeg exports proof</h3>
-            <p>The final MP4, frame sheet, and JSON report are generated and validated before the run is done.</p>
+            <h3>Artifacts prove it worked</h3>
+            <p>The agent checks the MP4, frame sheet, and report before saying the demo is done.</p>
           </article>
         </div>
       </section>
@@ -158,5 +175,6 @@ export default defineDemo({
         </div>
       </section>
     </main>
+    <script src="./script.js"></script>
   </body>
 </html>
