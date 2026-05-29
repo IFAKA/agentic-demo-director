@@ -1,4 +1,5 @@
 const workbench = document.querySelector(".demo-workbench");
+const replayButton = document.querySelector(".restart-note");
 const steps = Array.from(document.querySelectorAll(".demo-step"));
 const dots = Array.from(document.querySelectorAll(".demo-progress span"));
 const title = document.querySelector("[data-demo-title]");
@@ -59,7 +60,7 @@ let currentStep = 0;
 let timer;
 let runId = 0;
 
-workbench?.addEventListener("click", () => {
+replayButton?.addEventListener("click", () => {
   playFromStart();
 });
 
