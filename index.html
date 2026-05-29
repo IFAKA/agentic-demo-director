@@ -49,7 +49,16 @@
               <p class="terminal-label">Applying targeted patch</p>
               <pre><code data-stream="patch"></code><span class="cursor"></span></pre>
             </div>
-            <div class="demo-step output-step" data-step="3">
+            <div class="demo-step terminal-step" data-step="3">
+              <p class="terminal-label">Recording and composing</p>
+              <div class="run-log">
+                <p><span data-run-dot="0"></span><code data-stream="record-1"></code></p>
+                <p><span data-run-dot="1"></span><code data-stream="record-2"></code></p>
+                <p><span data-run-dot="2"></span><code data-stream="record-3"></code></p>
+                <p><span data-run-dot="3"></span><code data-stream="record-4"></code></p>
+              </div>
+            </div>
+            <div class="demo-step output-step" data-step="4">
               <div class="video-card">
                 <video src="./assets/idlediary-demo.mp4" muted playsinline loop></video>
                 <div class="video-controls">
@@ -71,6 +80,7 @@
             <span></span>
             <span></span>
             <span></span>
+            <span></span>
           </div>
           <p class="restart-note">Click to replay</p>
         </button>
@@ -79,39 +89,39 @@
       <section class="pipeline" id="how-it-works" aria-labelledby="how-title">
         <div class="section-title">
           <p class="eyebrow">Realistic flow</p>
-          <h2 id="how-title">A normal user asks for the demo. The agent builds the repeatable recording setup.</h2>
+          <h2 id="how-title">The whole workflow follows the same loop as the hero.</h2>
         </div>
         <div class="pipeline-grid">
           <article>
             <span>1</span>
-            <h3>Ask in plain English</h3>
-            <p>“Make a launch demo. Show record, delete, generate, and end on the videos list.”</p>
+            <h3>Ask for the demo</h3>
+            <p>A normal request starts it: “make the launch demo video” or “record the onboarding walkthrough.”</p>
           </article>
           <article>
             <span>2</span>
-            <h3>Agent prepares the app</h3>
-            <p>It finds routes, selectors, fixtures, demo hooks, and writes a reusable `demo/main.demo.ts` scenario.</p>
+            <h3>Scenario streams in</h3>
+            <p>The agent detects routes, fixtures, selectors, hooks, and writes the repeatable `.demo.ts` recipe.</p>
           </article>
           <article>
             <span>3</span>
-            <h3>You request tweaks</h3>
-            <p>“Make the delete slower” becomes a small timing edit, then the same scenario records again.</p>
+            <h3>Tweaks patch code</h3>
+            <p>“Make the delete slower” changes the exact gesture timing instead of editing pixels by hand.</p>
           </article>
           <article>
             <span>4</span>
-            <h3>Artifacts prove it worked</h3>
-            <p>The agent checks the MP4, frame sheet, and report before saying the demo is done.</p>
+            <h3>Recorder exports proof</h3>
+            <p>Playwright performs the demo, ffmpeg composes the MP4, and ffprobe validates the result.</p>
           </article>
         </div>
       </section>
 
       <section class="split" id="quick-start">
         <div class="section-title">
-          <p class="eyebrow">Setup</p>
-          <h2>Install it once, then ask for demos in plain English.</h2>
+          <p class="eyebrow">Install</p>
+          <h2>One local CLI turns an app repo into a demo workspace.</h2>
           <p>
-            The first integration adds scripts and a reusable scenario. Future requests usually become small timing,
-            route, selector, or format edits.
+            `init` adds the demo folder and scripts. After that, natural-language requests become scenario edits and
+            recorder runs.
           </p>
         </div>
         <pre><code>npm install --save-dev ../agentic-demo-director/packages/cli
@@ -124,8 +134,8 @@ npm run demo:inspect</code></pre>
 
       <section class="scenario" id="scenario">
         <div class="section-title">
-          <p class="eyebrow">Scenario</p>
-          <h2>A demo request becomes code the team can keep.</h2>
+          <p class="eyebrow">Generated recipe</p>
+          <h2>The agent keeps the demo as code, so every tweak is repeatable.</h2>
         </div>
         <pre><code>import { defineDemo } from "@faka/demo-director";
 
@@ -155,14 +165,14 @@ export default defineDemo({
 
       <section class="outputs" aria-labelledby="outputs-title">
         <div class="section-title">
-          <p class="eyebrow">Validation</p>
-          <h2 id="outputs-title">The agent cannot just say “done.” It has to produce artifacts.</h2>
+          <p class="eyebrow">Generated artifacts</p>
+          <h2 id="outputs-title">The final answer is a video plus evidence it was generated correctly.</h2>
         </div>
         <div class="output-list">
-          <p><strong>main.mp4</strong><span>Final H.264 demo video.</span></p>
-          <p><strong>main.frames.jpg</strong><span>Contact sheet for visual review.</span></p>
-          <p><strong>main.report.json</strong><span>Duration, fps, dimensions, codec, audio, and timings.</span></p>
-          <p><strong>takes/</strong><span>Raw browser captures for debugging broken runs.</span></p>
+          <p><strong>main.mp4</strong><span>The demo video the user asked for.</span></p>
+          <p><strong>main.frames.jpg</strong><span>A contact sheet the agent can inspect before calling it done.</span></p>
+          <p><strong>main.report.json</strong><span>Duration, fps, dimensions, codec, audio, scenario, and timings.</span></p>
+          <p><strong>takes/</strong><span>Raw browser recordings for debugging the generation step.</span></p>
         </div>
       </section>
     </main>
