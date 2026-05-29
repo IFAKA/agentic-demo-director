@@ -67,7 +67,7 @@ const charDelay = 14;
 const lineBreakDelay = 52;
 const promptCharDelay = 44;
 const recognitionDelay = 900;
-const wordsPerMinute = 220;
+const developerTextReadingWordsPerMinute = 200;
 const minimumHold = 1400;
 const maximumHold = 4300;
 const editorGeneratedPause = 900;
@@ -297,7 +297,7 @@ function getStepHoldDuration(stepIndex) {
   if (stepIndex >= steps.length - 1 || isEditorStep(stepIndex)) return 0;
   const text = (streams[stepIndex] ?? []).map(([, value]) => value).join("\n");
   const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
-  const readingMs = (wordCount / wordsPerMinute) * 60_000;
+  const readingMs = (wordCount / developerTextReadingWordsPerMinute) * 60_000;
   return Math.min(maximumHold, Math.max(minimumHold, Math.round(recognitionDelay + readingMs)));
 }
 
