@@ -239,6 +239,10 @@ figcaption {
 }
 
 .demo-workbench {
+  --workbench-x: 0px;
+  --workbench-scale: 1;
+  --window-shift: 0px;
+  --window-scale: 1;
   display: grid;
   gap: 12px;
   width: 100%;
@@ -253,7 +257,7 @@ figcaption {
   text-align: left;
   opacity: 1;
   filter: blur(0);
-  transform: translateX(0) scale(1);
+  transform: translateX(calc(var(--workbench-x) + var(--window-shift))) scale(var(--workbench-scale)) scale(var(--window-scale));
   transform-origin: center;
   transition:
     opacity 480ms cubic-bezier(0.23, 1, 0.32, 1),
@@ -264,17 +268,20 @@ figcaption {
 body.is-opening .hero .demo-workbench {
   opacity: 0;
   filter: blur(8px);
-  transform: translateX(calc(-44% - 6px)) scale(1.02);
+  --workbench-x: calc(-44% - 6px);
+  --workbench-scale: 1.02;
 }
 
 body.is-intro-microdemo .hero .demo-workbench {
-  transform: translateX(calc(-44% - 6px)) scale(1.08);
+  --workbench-x: calc(-44% - 6px);
+  --workbench-scale: 1.08;
 }
 
 body.is-opening.is-intro-microdemo .hero .demo-workbench {
   opacity: 1;
   filter: blur(0);
-  transform: translateX(calc(-44% - 6px)) scale(1.08);
+  --workbench-x: calc(-44% - 6px);
+  --workbench-scale: 1.08;
 }
 
 .workbench-topbar {
@@ -758,24 +765,24 @@ body.is-intro-microdemo .restart-note {
 @keyframes workbench-enter {
   from {
     opacity: 0;
-    transform: translateX(34px) scale(0.975);
+    transform: translateX(calc(var(--workbench-x) + 34px)) scale(var(--workbench-scale)) scale(0.975);
   }
 
   to {
     opacity: 1;
-    transform: translateX(0) scale(1);
+    transform: translateX(var(--workbench-x)) scale(var(--workbench-scale)) scale(1);
   }
 }
 
 @keyframes workbench-exit {
   from {
     opacity: 1;
-    transform: translateX(0) scale(1);
+    transform: translateX(var(--workbench-x)) scale(var(--workbench-scale)) scale(1);
   }
 
   to {
     opacity: 0;
-    transform: translateX(-34px) scale(0.975);
+    transform: translateX(calc(var(--workbench-x) - 34px)) scale(var(--workbench-scale)) scale(0.975);
   }
 }
 
@@ -886,12 +893,14 @@ pre {
   }
 
   body.is-intro-microdemo .hero .demo-workbench {
-    transform: translateX(0) scale(1.03);
+    --workbench-x: 0px;
+    --workbench-scale: 1.03;
   }
 
   body.is-opening .hero .demo-workbench,
   body.is-opening.is-intro-microdemo .hero .demo-workbench {
-    transform: translateX(0) scale(1.03);
+    --workbench-x: 0px;
+    --workbench-scale: 1.03;
   }
 
   .pipeline-grid {
