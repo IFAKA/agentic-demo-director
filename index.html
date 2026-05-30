@@ -217,15 +217,19 @@
 
       <section class="split" id="quick-start">
         <div class="section-title">
-          <p class="eyebrow">Install</p>
-          <h2>One local CLI turns an app repo into a demo workspace.</h2>
+          <p class="eyebrow">No-friction setup</p>
+          <h2>Install the Codex skill once, then ask inside any app repo.</h2>
           <p>
-            `init` adds the demo folder and scripts. After that,
-            natural-language requests become scenario edits and recorder runs.
+            The global skill handles first-run project setup. If a scenario is
+            missing, it initializes the demo folder, adds scripts, validates the
+            machine, records, and inspects the output.
           </p>
         </div>
-        <pre><code>npm install --save-dev ../agentic-demo-director/packages/cli
-npx demo-director init
+        <pre><code># once per machine
+npx github:faka/agentic-demo-director install-skill
+
+# then, in any app project
+create demo video
 
 npm run demo:doctor
 npm run demo:record
@@ -275,11 +279,11 @@ export default defineDemo({
         </div>
         <div class="output-list">
           <p>
-            <strong>Launch demo</strong
+            <strong>main.mp4</strong
             ><span>The demo video the user asked for.</span>
           </p>
           <p>
-            <strong>frame-samples-latest.jpg</strong
+            <strong>main.frames.jpg</strong
             ><span
               >A contact sheet the agent can inspect before calling it
               done.</span

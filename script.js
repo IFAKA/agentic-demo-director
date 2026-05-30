@@ -19,9 +19,9 @@ const labels = [
 
 const streams = [
   [
-    ["request", "demo-director ask \"make the launch demo video\""],
+    ["request", "create demo video"],
     ["request-detail", "Need: show recording, delete one clip, end on the videos list."],
-    ["planning", "Inspecting routes, demo hooks, fixture media, selectors, and final validation..."],
+    ["planning", "Checking demo/main.demo.ts, initializing if missing, then running doctor..."],
   ],
   [
     [
@@ -57,7 +57,7 @@ const streams = [
     ["record-1", "start dev server and open a fresh browser context"],
     ["record-2", "run scenario with tap and drag overlay"],
     ["record-3", "record raw take, then compose final 4x5 MP4 with ffmpeg"],
-    ["record-4", "validate 1080x1350, 30fps, duration, frame sheet, report"],
+    ["record-4", "write dist/demo/main.mp4, frame sheet, and report"],
   ],
   [],
 ];

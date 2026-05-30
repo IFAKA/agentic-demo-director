@@ -2,7 +2,7 @@
 
 Agentic Demo Director records deterministic product-demo videos from reusable TypeScript scenarios. It lets an agent or developer describe a demo once, then rerun it reliably with Playwright, ffmpeg, ffprobe, app demo hooks, and a gesture overlay.
 
-This repo is intentionally local and private for now. It is not a published npm package yet.
+This repo is distributed from GitHub for the current v1 flow. Install the Codex skill once per machine, then use it from any app project.
 
 ## Natural-Language Workflow
 
@@ -53,35 +53,35 @@ brew install ffmpeg
 npx playwright install chromium
 ```
 
-## Install The Local CLI In An App
+## Recommended Setup
 
-From an app repo next to this project:
+Install the Codex skill once per machine:
 
 ```bash
-npm install --save-dev ../agentic-demo-director/packages/cli
+npx github:faka/agentic-demo-director install-skill
 ```
 
-Add scripts if `demo-director init` has not already added them:
+Restart Codex to pick up the new skill. After that, ask from inside any app project:
 
-```json
-{
-  "scripts": {
-    "demo:record": "demo-director record demo/main.demo.ts",
-    "demo:inspect": "demo-director inspect dist/demo/main.mp4",
-    "demo:doctor": "demo-director doctor demo/main.demo.ts"
-  }
-}
+```text
+create demo video
+```
+
+If `demo/main.demo.ts` is missing, the skill initializes the project with:
+
+```bash
+npx github:faka/agentic-demo-director init --skill none
 ```
 
 ## First Demo
 
-Initialize starter files:
+Manual project initialization is also available:
 
 ```bash
-npx demo-director init
+npx github:faka/agentic-demo-director init --skill none
 ```
 
-This creates:
+This adds `@faka/demo-director`, creates starter files, and adds package scripts:
 
 ```text
 demo/
@@ -180,7 +180,9 @@ Never expose demo hooks in normal production behavior. Gate them behind query pa
 ## Commands
 
 ```bash
-demo-director init
+demo-director install-skill
+demo-director install-skill --project
+demo-director init --skill global|project|none
 demo-director doctor demo/main.demo.ts
 demo-director record demo/main.demo.ts
 demo-director inspect dist/demo/main.mp4
@@ -214,4 +216,4 @@ The scenario records the launch flow, edits draft clips, generates a video, and 
 
 ## Current Status
 
-This is a working local prototype, not a stable public API. The next hardening steps are repeated app integrations, richer readiness hooks, blank-frame checks, and packaging after the scenario API settles.
+This is a working GitHub-first v1, not a stable npm-published API. The next hardening steps are repeated app integrations, richer readiness hooks, and blank-frame checks.

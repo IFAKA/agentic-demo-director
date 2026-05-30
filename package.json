@@ -1,19 +1,41 @@
 {
-  "name": "agentic-demo-director",
+  "name": "@faka/demo-director",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "type": "module",
+  "bin": {
+    "demo-director": "packages/cli/dist/index.js"
+  },
+  "main": "packages/cli/dist/api.js",
+  "types": "packages/cli/dist/api.d.ts",
+  "exports": {
+    ".": {
+      "types": "./packages/cli/dist/api.d.ts",
+      "import": "./packages/cli/dist/api.js"
+    }
+  },
+  "files": [
+    "packages/**/dist/**",
+    "packages/**/package.json",
+    "skills/demo-director/SKILL.md",
+    "README.md"
+  ],
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build -w @faka/demo-director-recorder && npm run build -w @faka/demo-director-app-sdk && npm run build -w @faka/demo-director",
-    "typecheck": "npm run typecheck -w @faka/demo-director-recorder && npm run typecheck -w @faka/demo-director-app-sdk && npm run typecheck -w @faka/demo-director",
+    "build": "npm run build -w @faka/demo-director-recorder && npm run build -w @faka/demo-director-app-sdk && npm run build -w @faka/demo-director-cli",
+    "typecheck": "npm run typecheck -w @faka/demo-director-recorder && npm run typecheck -w @faka/demo-director-app-sdk && npm run typecheck -w @faka/demo-director-cli",
     "test": "npm run typecheck",
-    "demo-director": "node packages/cli/dist/index.js"
+    "demo-director": "node packages/cli/dist/index.js",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "@faka/demo-director-recorder": "file:packages/recorder",
+    "@playwright/test": "^1.60.0",
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@types/node": "^24.10.1",
-    "typescript": "^5.9.3"
+    "@types/node": "^24.10.1"
   }
 }
