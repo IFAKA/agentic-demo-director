@@ -93,7 +93,7 @@ export async function composeFinal(rawTake: string, outputPath: string, scenario
     "-c:v",
     "libx264",
     "-preset",
-    "veryfast",
+    "superfast",
     "-crf",
     "18",
     "-c:a",

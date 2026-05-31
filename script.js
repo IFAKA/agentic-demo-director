@@ -73,11 +73,13 @@ const streams = [
 const finalIntroHold = 1800;
 const charDelay = 14;
 const lineBreakDelay = 52;
+const recordCharDelay = 8;
 const promptCharDelay = 44;
 const recognitionDelay = 900;
 const developerTextReadingWordsPerMinute = 200;
 const minimumHold = 1400;
 const maximumHold = 4300;
+const recordStepHold = 900;
 const editorGeneratedPause = 900;
 const workbenchTransitionOut = 260;
 const workbenchTransitionIn = 320;
@@ -233,7 +235,11 @@ async function streamStep(stepIndex, activeRun) {
 async function typeInto(targetName, text, activeRun) {
   const element = document.querySelector(`[data-stream="${targetName}"]`);
   if (!element) return;
-  const streamCharDelay = isPromptStream(targetName) ? promptCharDelay : charDelay;
+  const streamCharDelay = isRecordStream(targetName)
+    ? recordCharDelay
+    : isPromptStream(targetName)
+      ? promptCharDelay
+      : charDelay;
   renderStreamText(element, targetName, "");
   for (const char of text) {
     if (activeRun !== runId) return;
@@ -244,6 +250,10 @@ async function typeInto(targetName, text, activeRun) {
 
 function isPromptStream(targetName) {
   return targetName === "request" || targetName === "tweak";
+}
+
+function isRecordStream(targetName) {
+  return targetName.startsWith("record-");
 }
 
 function renderStreamText(element, targetName, text) {
@@ -310,6 +320,7 @@ async function advanceToStep(nextStep, activeRun) {
 
 function getStepHoldDuration(stepIndex) {
   if (stepIndex >= steps.length - 1 || isEditorStep(stepIndex)) return 0;
+  if (steps[stepIndex]?.dataset.step === "4") return recordStepHold;
   const text = (streams[stepIndex] ?? []).map(([, value]) => value).join("\n");
   const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
   const readingMs = (wordCount / developerTextReadingWordsPerMinute) * 60_000;
