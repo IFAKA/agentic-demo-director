@@ -45,7 +45,7 @@
               rel="noopener noreferrer"
               >Support on Ko-fi</a
             >
-            <a class="secondary-link" href="#quick-start">Install skill</a>
+            <a class="secondary-link" href="#quick-start" data-install-link>Install skill</a>
           </div>
         </div>
 
@@ -235,15 +235,42 @@
             machine, records, and inspects the output.
           </p>
         </div>
-        <pre><code># once per machine
-npx github:faka/agentic-demo-director install-skill
+        <div class="quick-start-commands">
+          <div class="install-panel terminal-panel" data-install-panel>
+            <div class="guided-cursor" data-guided-cursor aria-hidden="true">
+              <svg class="guide-trail" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                  <mask id="guide-trail-mask">
+                    <path data-guide-trail-mask></path>
+                  </mask>
+                </defs>
+                <path data-guide-trail></path>
+              </svg>
+              <i class="cursor-attention" data-cursor-attention></i>
+              <span></span>
+            </div>
+            <div class="install-terminal-bar">
+              <span aria-hidden="true"></span>
+              <em>Install once</em>
+              <button class="copy-install" type="button" data-copy-install aria-label="Copy install command">
+                <span class="copy-install-icon" aria-hidden="true"></span>
+              </button>
+            </div>
+            <pre><code>npx github:faka/agentic-demo-director install-skill</code></pre>
+          </div>
 
-# then, in any app project
-create demo video
+          <div class="terminal-panel use-panel">
+            <div class="install-terminal-bar">
+              <span aria-hidden="true"></span>
+              <em>Then in any app repo</em>
+            </div>
+            <pre><code>create demo video
 
 npm run demo:doctor
 npm run demo:record
 npm run demo:inspect</code></pre>
+          </div>
+        </div>
       </section>
 
       <section class="scenario" id="scenario">
