@@ -70,7 +70,7 @@ async function initDemo(args: string[]) {
   };
   packageJson.devDependencies = {
     ...packageJson.devDependencies,
-    "@faka/demo-director": "github:faka/agentic-demo-director",
+    "@faka/demo-director": "github:IFAKA/agentic-demo-director",
   };
   await writeFile(packageJsonPath, `${JSON.stringify(packageJson, null, 2)}\n`);
 
@@ -292,7 +292,12 @@ function installCommand(packageManager: PackageManager) {
 function runInstall(packageManager: PackageManager, cwd: string) {
   const [installBinary, ...installArgs] = installCommand(packageManager).split(" ");
   return new Promise<void>((resolvePromise, reject) => {
-    const child = spawn(installBinary, installArgs, { cwd, stdio: "inherit", env: process.env });
+    const child = spawn(installBinary, installArgs, {
+      cwd,
+      stdio: "inherit",
+      env: process.env,
+      shell: process.platform === "win32",
+    });
     child.on("error", reject);
     child.on("close", (code) => {
       if (code === 0) resolvePromise();

@@ -58,7 +58,7 @@ npx playwright install chromium
 Install the Codex skill once per machine:
 
 ```bash
-npx github:faka/agentic-demo-director install-skill
+npx github:IFAKA/agentic-demo-director install-skill
 ```
 
 Restart Codex to pick up the new skill. After that, ask from inside any app project:
@@ -70,7 +70,7 @@ create demo video
 If `demo/main.demo.ts` is missing, the skill initializes the project with:
 
 ```bash
-npx github:faka/agentic-demo-director init --skill none
+npx github:IFAKA/agentic-demo-director init --skill none
 ```
 
 ## First Demo
@@ -78,7 +78,7 @@ npx github:faka/agentic-demo-director init --skill none
 Manual project initialization is also available:
 
 ```bash
-npx github:faka/agentic-demo-director init --skill none
+npx github:IFAKA/agentic-demo-director init --skill none
 ```
 
 This adds `@faka/demo-director`, creates starter files, and adds package scripts:
