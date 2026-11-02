@@ -217,3 +217,11 @@ The scenario records the launch flow, edits draft clips, generates a video, and 
 ## Current Status
 
 This is a working GitHub-first v1, not a stable npm-published API. The next hardening steps are repeated app integrations, richer readiness hooks, and blank-frame checks.
+
+---
+
+## Support
+
+If this project is useful to you, you can support my work:
+
+[![Support me on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/zfaka)
